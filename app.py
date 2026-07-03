@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import os
+from PyPDF2 import PdfReader
 
 app = Flask(__name__)
 
@@ -20,18 +21,29 @@ def upload():
     file = request.files["resume"]
 
     if file:
+        filepath = os.path.join(
+        app.config["UPLOAD_FOLDER"],
+        file.filename
+    )
 
-        file.save(
-            os.path.join(
-                app.config["UPLOAD_FOLDER"],
-                file.filename
-            )
-        )
+    file.save(filepath)
 
-        return f"""
-          Resume uploaded successfully! <br><br>
-          File Name: {file.filename}
- """
+    reader = PdfReader(filepath)
+
+    text = ""
+
+    for page in reader.pages:
+        text += page.extract_text()
+
+    return f"""
+    Resume uploaded successfully! <br><br>
+
+    File Name: {file.filename}<br><br>
+
+    Resume Content:<br><br>
+
+    {text}
+    """
 
 if __name__ == "__main__":
     app.run(debug=True)

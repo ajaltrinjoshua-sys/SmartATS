@@ -34,6 +34,7 @@ def upload():
 
     for page in reader.pages:
         text += page.extract_text()
+        text = text.replace("\n", "<br>")
 
     return f"""
     Resume uploaded successfully! <br><br>

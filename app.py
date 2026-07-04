@@ -11,7 +11,6 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 @app.route("/")
 def home():
-
     return render_template("index.html")
 
 
@@ -21,30 +20,53 @@ def upload():
     file = request.files["resume"]
 
     if file:
+
         filepath = os.path.join(
-        app.config["UPLOAD_FOLDER"],
-        file.filename
-    )
+            app.config["UPLOAD_FOLDER"],
+            file.filename
+        )
 
-    file.save(filepath)
+        file.save(filepath)
 
-    reader = PdfReader(filepath)
+        reader = PdfReader(filepath)
 
-    text = ""
+        resume_text = ""
 
-    for page in reader.pages:
-        text += page.extract_text()
-        text = text.replace("\n", "<br>")
+        for page in reader.pages:
+            resume_text += page.extract_text()
 
-    return f"""
-    Resume uploaded successfully! <br><br>
+        # Keep line breaks
+        resume_text = resume_text.replace("\n", "<br>")
 
-    File Name: {file.filename}<br><br>
+        # Skills to detect
+        skills = [
+            "Python",
+            "Java",
+            "C++",
+            "Machine Learning",
+            "HTML",
+            "CSS",
+            "Flask"
+        ]
 
-    Resume Content:<br><br>
+        found_skills = []
 
-    {text}
-    """
+        for skill in skills:
+            if skill.lower() in resume_text.lower():
+                found_skills.append(skill)
+
+        return f"""
+        Resume uploaded successfully! <br><br>
+
+        File Name: {file.filename}<br><br>
+
+        Resume Content:<br><br>
+
+        {resume_text}<br><br>
+
+        Detected Skills:<br>
+        {", ".join(found_skills)}
+        """
 
 if __name__ == "__main__":
     app.run(debug=True)

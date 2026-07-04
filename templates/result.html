@@ -2,10 +2,17 @@
 <html>
 
 <head>
-    <title>SmartATS Results</title>
+
+<title>SmartATS Results</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 
 <body>
+
+<div class="container">
 
 <h1>SmartATS Results</h1>
 
@@ -13,23 +20,39 @@
 <p>{{ occupation }}</p>
 
 <h2>Resume Score</h2>
-<p>{{ score }}/100</p>
+
+<div class="score-box">
+
+<div class="score-fill"
+style="width:{{score}}%;">
+
+{{score}}%
+
+</div>
+
+</div>
 
 <h2>Detected Skills</h2>
 
 <ul>
-    {% for skill in found_skills %}
-        <li>✓ {{ skill }}</li>
-    {% endfor %}
+
+{% for skill in found_skills %}
+<li>✓ {{skill}}</li>
+{% endfor %}
+
 </ul>
 
 <h2>Missing Skills</h2>
 
 <ul>
-    {% for skill in missing_skills %}
-        <li>✗ {{ skill }}</li>
-    {% endfor %}
+
+{% for skill in missing_skills %}
+<li>✗ {{skill}}</li>
+{% endfor %}
+
 </ul>
+
+</div>
 
 </body>
 

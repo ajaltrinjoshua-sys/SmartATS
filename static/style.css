@@ -1,0 +1,21 @@
+body{
+    font-family: Arial;
+    margin:40px;
+}
+
+.container{
+    width:70%;
+    margin:auto;
+}
+
+.score-box{
+    width:100%;
+    background-color:#ddd;
+}
+
+.score-fill{
+    background-color:green;
+    height:30px;
+    text-align:center;
+    color:white;
+}

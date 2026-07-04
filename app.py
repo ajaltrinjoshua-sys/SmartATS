@@ -60,6 +60,14 @@ def upload():
         matched_skills = len(found_skills)
         score = (matched_skills / total_skills) * 100 if total_skills > 0 else 0
 
+        #List of missing skills
+        missing_skills =[]
+        for skill in skills:
+            if skill not in found_skills:
+                missing_skills.append(skill)
+
+        #Return
+
         return f"""
         Resume uploaded successfully! <br><br>
 
@@ -71,9 +79,12 @@ def upload():
 
         Detected Skills:<br>
         {", ".join(found_skills)}<br><br>
-        
+
         Resume Score:<br>
-        {score:.0f}/100
+        {score:.0f}/100<br><br>
+
+        Suggestions for Improvement:<br>
+        Add the following skills to your resume to improve your score: {", ".join(missing_skills)}<br><br>
         """
 
 if __name__ == "__main__":

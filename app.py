@@ -21,6 +21,7 @@ def upload():
     file = request.files["resume"]
 
     occupation = request.form["occupation"]
+    job_description = request.form["job_description"]
 
     if file:
 
@@ -76,21 +77,25 @@ def upload():
 
         skills = job_skills[occupation]
 
-        found_skills=[]
+        found_skills = []
 
         for skill in skills:
 
-            if skill.lower() in resume_text.lower():
+            if (
+                skill.lower() in resume_text.lower()
+                and
+                skill.lower() in job_description.lower()
+            ):
 
                 found_skills.append(skill)
 
-        total_skills=len(skills)
+        total_skills = len(skills)
 
-        matched_skills=len(found_skills)
+        matched_skills = len(found_skills)
 
-        score=(matched_skills/total_skills)*100
+        score = (matched_skills / total_skills) * 100
 
-        missing_skills=[]
+        missing_skills = []
 
         for skill in skills:
 
@@ -98,32 +103,13 @@ def upload():
 
                 missing_skills.append(skill)
 
-        return f"""
-        Resume uploaded successfully!<br><br>
-
-        Occupation:
-        {occupation}<br><br>
-
-        File Name:
-        {file.filename}<br><br>
-
-        Resume Content:<br><br>
-
-        {resume_text}<br><br>
-
-        Detected Skills:<br>
-
-        {", ".join(found_skills)}<br><br>
-
-        Resume Score:<br>
-
-        {score:.0f}/100<br><br>
-
-        Suggestions:<br>
-
-        Add these skills:
-        {", ".join(missing_skills)}
-        """
+        return render_template(
+            "result.html",
+            occupation=occupation,
+            score=round(score),
+            found_skills=found_skills,
+            missing_skills=missing_skills
+        )
 
 if __name__=="__main__":
     app.run(debug=True)

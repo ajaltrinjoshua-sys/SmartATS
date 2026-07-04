@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SmartATS Results</title>
+</head>
+
+<body>
+
+<h1>SmartATS Results</h1>
+
+<h2>Occupation</h2>
+<p>{{ occupation }}</p>
+
+<h2>Resume Score</h2>
+<p>{{ score }}/100</p>
+
+<h2>Detected Skills</h2>
+
+<ul>
+    {% for skill in found_skills %}
+        <li>✓ {{ skill }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Missing Skills</h2>
+
+<ul>
+    {% for skill in missing_skills %}
+        <li>✗ {{ skill }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+
+</html>

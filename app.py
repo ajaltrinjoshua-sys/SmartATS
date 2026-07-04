@@ -62,18 +62,31 @@ def upload():
 
         job_skills = {
 
-            "Full Stack Developer":
-            ["HTML","CSS","JavaScript","Python","Flask","SQL"],
+        "Full Stack Developer":
+        ["HTML","CSS","JavaScript","React","Node.js",
+        "Python","Flask","SQL","Git","REST API"],
 
-            "Cloud Engineer":
-            ["AWS","Linux","Docker","Kubernetes","Python"],
+        "Cloud Engineer":
+        ["AWS","Azure","Linux","Docker",
+        "Kubernetes","Python","Networking","Terraform"],
 
-            "Cyber Security Analyst":
-            ["Networking","Linux","Python","Wireshark"],
+        "Cyber Security Analyst":
+        ["Networking","Linux","Python",
+        "Wireshark","Burp Suite","Nmap","Kali Linux"],
 
-            "Data Scientist":
-            ["Python","Machine Learning","Pandas","SQL"]
-        }
+        "Data Scientist":
+        ["Python","Machine Learning","Pandas",
+        "NumPy","SQL","TensorFlow","Statistics"],
+
+        "AI/ML Engineer":
+        ["Python","Machine Learning",
+        "Deep Learning","TensorFlow",
+        "PyTorch","NLP"],
+
+        "UI/UX Designer":
+        ["Figma","Adobe XD",
+        "Wireframing","Prototyping","User Research"]
+    }
 
         skills = job_skills[occupation]
 

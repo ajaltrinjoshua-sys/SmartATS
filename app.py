@@ -54,6 +54,11 @@ def upload():
         for skill in skills:
             if skill.lower() in resume_text.lower():
                 found_skills.append(skill)
+        
+        # Score ccalculation based on the number of skills found
+        total_skills = len(skills)
+        matched_skills = len(found_skills)
+        score = (matched_skills / total_skills) * 100 if total_skills > 0 else 0
 
         return f"""
         Resume uploaded successfully! <br><br>
@@ -65,7 +70,10 @@ def upload():
         {resume_text}<br><br>
 
         Detected Skills:<br>
-        {", ".join(found_skills)}
+        {", ".join(found_skills)}<br><br>
+        
+        Resume Score:<br>
+        {score:.0f}/100
         """
 
 if __name__ == "__main__":

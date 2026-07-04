@@ -9,16 +9,55 @@
 
 <h1>SmartATS Resume Analyzer</h1>
 
-<p>Upload your resume below</p>
+<form action="/upload"
+method="POST"
+enctype="multipart/form-data">
 
-<form action="/upload" method="POST" enctype="multipart/form-data">
+<p>Select Occupation:</p>
 
-<input type="file" name="resume">
+<select name="occupation">
+
+<option value="Full Stack Developer">
+Full Stack Developer
+</option>
+
+<option value="Cloud Engineer">
+Cloud Engineer
+</option>
+
+<option value="Cyber Security Analyst">
+Cyber Security Analyst
+</option>
+
+<option value="Data Scientist">
+Data Scientist
+</option>
+
+</select>
+
+<br><br>
+
+<p>Paste Job Description:</p>
+
+<textarea
+name="job_description"
+rows="8"
+cols="50"
+placeholder="Paste job description here">
+</textarea>
+
+<br><br>
+
+<input type="file"
+name="resume"
+accept=".pdf,.docx">
 
 <br><br>
 
 <button type="submit">
+
 Analyze Resume
+
 </button>
 
 </form>

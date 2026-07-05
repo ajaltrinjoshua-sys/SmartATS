@@ -3,7 +3,7 @@
 
 <head>
 
-<title>SmartATS Results</title>
+<title>Results</title>
 
 <link rel="stylesheet"
 href="{{ url_for('static', filename='style.css') }}">
@@ -12,16 +12,15 @@ href="{{ url_for('static', filename='style.css') }}">
 
 <body>
 
-<div class="container">
+<div class="main-container">
+
+<div class="card">
 
 <h1>SmartATS Results</h1>
 
-<h2>Occupation</h2>
-<p>{{ occupation }}</p>
+<h3>{{occupation}}</h3>
 
-<h2>Resume Score</h2>
-
-<div class="score-box">
+<div class="score-container">
 
 <div class="score-fill"
 style="width:{{score}}%;">
@@ -32,25 +31,44 @@ style="width:{{score}}%;">
 
 </div>
 
+<div class="skills-section">
+
 <h2>Detected Skills</h2>
 
 <ul>
 
 {% for skill in found_skills %}
-<li>✓ {{skill}}</li>
+
+<li class="good">
+
+✓ {{skill}}
+
+</li>
+
 {% endfor %}
 
 </ul>
+
 
 <h2>Missing Skills</h2>
 
 <ul>
 
 {% for skill in missing_skills %}
-<li>✗ {{skill}}</li>
+
+<li class="bad">
+
+✗ {{skill}}
+
+</li>
+
 {% endfor %}
 
 </ul>
+
+</div>
+
+</div>
 
 </div>
 

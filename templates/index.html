@@ -2,18 +2,31 @@
 <html>
 
 <head>
+
     <title>SmartATS</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 
 <body>
 
-<h1>SmartATS Resume Analyzer</h1>
+<div class="main-container">
+
+<div class="card">
+
+<h1>SmartATS</h1>
+
+<p class="subtitle">
+AI Powered Resume Analyzer
+</p>
 
 <form action="/upload"
 method="POST"
 enctype="multipart/form-data">
 
-<p>Select Occupation:</p>
+<label>Select Occupation</label>
 
 <select name="occupation">
 
@@ -43,24 +56,22 @@ UI/UX Designer
 
 </select>
 
-<br><br>
 
-<p>Paste Job Description:</p>
+<label>Paste Job Description</label>
 
 <textarea
 name="job_description"
-rows="8"
-cols="50"
-placeholder="Paste job description here">
-</textarea>
+placeholder="Paste job description..."
+></textarea>
 
-<br><br>
 
-<input type="file"
+<label>Upload Resume</label>
+
+<input
+type="file"
 name="resume"
-accept=".pdf,.docx">
-
-<br><br>
+accept=".pdf,.docx"
+>
 
 <button type="submit">
 
@@ -70,6 +81,9 @@ Analyze Resume
 
 </form>
 
-</body>
+</div>
 
+</div>
+
+</body>
 </html>

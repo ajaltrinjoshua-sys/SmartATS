@@ -1,0 +1,84 @@
+{
+    "Full Stack Developer": {
+        "must_have": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Python"
+        ],
+
+        "optional": [
+            "React",
+            "Node.js",
+            "Flask",
+            "SQL",
+            "Git"
+        ]
+    },
+
+    "Cloud Engineer": {
+        "must_have": [
+            "AWS",
+            "Linux",
+            "Docker"
+        ],
+
+        "optional": [
+            "Azure",
+            "Kubernetes",
+            "Python"
+        ]
+    },
+
+    "Cyber Security Analyst": {
+        "must_have": [
+            "Networking",
+            "Linux"
+        ],
+
+        "optional": [
+            "Python",
+            "Wireshark",
+            "Nmap"
+        ]
+    },
+
+    "Data Scientist": {
+        "must_have": [
+            "Python",
+            "Machine Learning"
+        ],
+
+        "optional": [
+            "Pandas",
+            "NumPy",
+            "SQL"
+        ]
+    },
+
+    "AI/ML Engineer": {
+        "must_have": [
+            "Python",
+            "Machine Learning"
+        ],
+
+        "optional": [
+            "TensorFlow",
+            "PyTorch",
+            "Deep Learning",
+            "NLP"
+        ]
+    },
+
+    "UI/UX Designer": {
+        "must_have": [
+            "Figma"
+        ],
+
+        "optional": [
+            "Adobe XD",
+            "Wireframing",
+            "Prototyping"
+        ]
+    }
+}

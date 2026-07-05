@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request
 import os
-from PyPDF2 import PdfReader
-from docx import Document
+from parser import extract_text
+from matcher import find_skills
+from scorer import calculate_score
+from matcher import get_occupation_data
 
 app = Flask(__name__)
 
@@ -21,6 +23,7 @@ def upload():
     file = request.files["resume"]
 
     occupation = request.form["occupation"]
+
     job_description = request.form["job_description"]
 
     if file:
@@ -34,79 +37,24 @@ def upload():
 
         resume_text = ""
 
-        # PDF extraction
-        if file.filename.endswith(".pdf"):
+        resume_text, sections = extract_text(filepath)
 
-            reader = PdfReader(filepath)
+        # Occupation skills database
+        found_skills, skills = find_skills(
+            resume_text,
+            job_description,
+            occupation
+)
+        print("Found Skills:", found_skills)
 
-            for page in reader.pages:
+        occupation_data = get_occupation_data(
+             occupation
+)
 
-                extracted = page.extract_text()
-
-                if extracted:
-                    resume_text += extracted
-
-        # DOCX extraction
-        elif file.filename.endswith(".docx"):
-
-            doc = Document(filepath)
-
-            for paragraph in doc.paragraphs:
-
-                resume_text += paragraph.text + "\n"
-
-        resume_text = resume_text.replace(
-            "\n",
-            "<br>"
-        )
-
-        job_skills = {
-
-        "Full Stack Developer":
-        ["HTML","CSS","JavaScript","React","Node.js",
-        "Python","Flask","SQL","Git","REST API"],
-
-        "Cloud Engineer":
-        ["AWS","Azure","Linux","Docker",
-        "Kubernetes","Python","Networking","Terraform"],
-
-        "Cyber Security Analyst":
-        ["Networking","Linux","Python",
-        "Wireshark","Burp Suite","Nmap","Kali Linux"],
-
-        "Data Scientist":
-        ["Python","Machine Learning","Pandas",
-        "NumPy","SQL","TensorFlow","Statistics"],
-
-        "AI/ML Engineer":
-        ["Python","Machine Learning",
-        "Deep Learning","TensorFlow",
-        "PyTorch","NLP"],
-
-        "UI/UX Designer":
-        ["Figma","Adobe XD",
-        "Wireframing","Prototyping","User Research"]
-    }
-
-        skills = job_skills[occupation]
-
-        found_skills = []
-
-        for skill in skills:
-
-            if (
-                skill.lower() in resume_text.lower()
-                and
-                skill.lower() in job_description.lower()
-            ):
-
-                found_skills.append(skill)
-
-        total_skills = len(skills)
-
-        matched_skills = len(found_skills)
-
-        score = (matched_skills / total_skills) * 100
+        score = calculate_score(
+            found_skills,
+            occupation_data
+)
 
         missing_skills = []
 
@@ -117,12 +65,18 @@ def upload():
                 missing_skills.append(skill)
 
         return render_template(
+
             "result.html",
+
             occupation=occupation,
+
             score=round(score),
+
             found_skills=found_skills,
+
             missing_skills=missing_skills
         )
+
 
 if __name__=="__main__":
     app.run(debug=True)

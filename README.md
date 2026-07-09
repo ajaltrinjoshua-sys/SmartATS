@@ -1,24 +1,32 @@
 # SmartATS
 
-AI-powered Resume Analysis and Ranking System
+An AI-ready Applicant Tracking System (ATS) Resume Analyzer built using Python, Flask, HTML, CSS, and JavaScript.
 
 ## Features
-- Resume upload
-- Resume scoring
-- ATS compatibility check
-- Skill extraction
-- Suggestions for improvement
-- Resume ranking
 
-## Technologies Used
+- ATS Resume Score
+- Skill Detection
+- Occupation-Based Skill Matching
+- Job Description Analysis
+- Contact Information Extraction
+- Resume Completeness Analysis
+- Resume Strength Indicator
+- Skill Coverage Visualization
+- Personalized Recommendations
+- Apple-inspired Glassmorphism UI
+
+## Tech Stack
 
 - Python
 - Flask
-- HTML
-- CSS
-- Git
-- GitHub
+- HTML5
+- CSS3
+- JavaScript
+- PyPDF2
+- python-docx
 
 ## Project Status
 
-Currently under development
+✅ Phase 1 Completed
+
+🚧 Phase 2 In Progress

@@ -1,4 +1,24 @@
 import json
+from rapidfuzz import fuzz
+
+
+SYNONYMS = {
+
+    "Machine Learning":["ML"],
+
+    "JavaScript":["JS"],
+
+    "Artificial Intelligence":["AI"],
+
+    "Node.js":["Node"],
+
+    "TensorFlow":["TF"],
+
+    "User Interface":["UI"],
+
+    "User Experience":["UX"]
+
+}
 
 
 def get_skills(occupation):
@@ -13,7 +33,34 @@ def get_skills(occupation):
     return data[occupation]
 
 
+def fuzzy_match(skill, text):
+
+    similarity = fuzz.partial_ratio(
+        skill.lower(),
+        text.lower()
+    )
+
+    return similarity > 80
+
+
+def synonym_match(
+    skill,
+    text
+):
+
+    if skill in SYNONYMS:
+
+        for synonym in SYNONYMS[skill]:
+
+            if synonym.lower() in text.lower():
+
+                return True
+
+    return False
+
+
 def find_skills(
+
     resume_text,
     job_description,
     occupation
@@ -27,21 +74,60 @@ def find_skills(
 
     optional = data["optional"]
 
-    all_skills = must_have + optional
+    all_skills = (
+        must_have +
+        optional
+    )
 
     found_skills = []
 
     for skill in all_skills:
 
-        if (
-            skill.lower() in resume_text
-            and
-            skill.lower() in job_description.lower()
-        ):
+        resume_found = (
 
-            found_skills.append(skill)
+            fuzzy_match(
+                skill,
+                resume_text
+            )
+
+            or
+
+            synonym_match(
+                skill,
+                resume_text
+            )
+
+        )
+
+        jd_found = (
+
+            fuzzy_match(
+                skill,
+                job_description
+            )
+
+            or
+
+            synonym_match(
+                skill,
+                job_description
+            )
+
+        )
+
+        if resume_found and jd_found:
+
+            found_skills.append(
+                skill
+            )
+
+    print(
+        "Found Skills:",
+        found_skills
+    )
 
     return found_skills, all_skills
+
 
 def get_occupation_data(
     occupation

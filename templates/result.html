@@ -18,7 +18,79 @@ href="{{ url_for('static', filename='style.css') }}">
 
 <h1>SmartATS Results</h1>
 
-<h3>{{occupation}}</h3>
+<h3 class="subtitle">
+
+{{occupation}}
+
+</h3>
+
+
+
+<!-- Resume Information -->
+
+<div class="skills-section">
+
+<h2>
+
+Resume Information
+
+</h2>
+
+<ul>
+
+<li class="good">
+
+👤 <strong>Name:</strong>
+
+{{contact.name}}
+
+</li>
+
+<li class="good">
+
+📧 <strong>Email:</strong>
+
+{{contact.email}}
+
+</li>
+
+<li class="good">
+
+📱 <strong>Phone:</strong>
+
+{{contact.phone}}
+
+</li>
+
+<li class="good">
+
+💼 <strong>LinkedIn:</strong>
+
+{{contact.linkedin}}
+
+</li>
+
+<li class="good">
+
+💻 <strong>GitHub:</strong>
+
+{{contact.github}}
+
+</li>
+
+</ul>
+
+</div>
+
+
+
+<!-- ATS SCORE -->
+
+<h2>
+
+ATS Score
+
+</h2>
 
 <div class="score-container">
 
@@ -31,9 +103,183 @@ style="width:{{score}}%;">
 
 </div>
 
+
+
+<!-- Resume Strength -->
+
 <div class="skills-section">
 
-<h2>Detected Skills</h2>
+<h2>
+
+Resume Strength
+
+</h2>
+
+{% if score>=80 %}
+
+<div class="good">
+
+🟢 Strong Resume
+
+</div>
+
+{% elif score>=50 %}
+
+<div class="average">
+
+🟠 Average Resume
+
+</div>
+
+{% else %}
+
+<div class="bad">
+
+🔴 Weak Resume
+
+</div>
+
+{% endif %}
+
+</div>
+
+
+
+<!-- Skill Coverage -->
+
+<div class="skills-section">
+
+<h2>
+
+Skill Coverage
+
+</h2>
+
+<div class="score-container">
+
+<div class="score-fill"
+style="width:{{stats.percentage}}%;">
+
+{{stats.percentage}}%
+
+</div>
+
+</div>
+
+<ul>
+
+<li class="good">
+
+✓ Matched Skills :
+{{stats.matched}}
+
+</li>
+
+<li class="bad">
+
+✗ Missing Skills :
+{{stats.missing}}
+
+</li>
+
+</ul>
+
+</div>
+
+
+
+<!-- Resume Completeness -->
+
+<div class="skills-section">
+
+<h2>
+
+Resume Completeness
+
+</h2>
+
+<div class="score-container">
+
+<div class="score-fill"
+style="width:{{completeness.percentage}}%;">
+
+{{completeness.percentage}}%
+
+</div>
+
+</div>
+
+<ul>
+
+{% for key,value in completeness.checklist.items() %}
+
+{% if value=="✓" %}
+
+<li class="good">
+
+{{value}}
+
+{{key}}
+
+</li>
+
+{% else %}
+
+<li class="bad">
+
+{{value}}
+
+{{key}}
+
+</li>
+
+{% endif %}
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+
+
+<!-- Score Breakdown -->
+
+<div class="skills-section">
+
+<h2>
+
+Score Breakdown
+
+</h2>
+
+<ul>
+
+{% for item in breakdown %}
+
+<li class="good">
+
+⭐ {{item}}
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+
+
+<!-- Detected Skills -->
+
+<div class="skills-section">
+
+<h2>
+
+Detected Skills
+
+</h2>
 
 <ul>
 
@@ -49,8 +295,19 @@ style="width:{{score}}%;">
 
 </ul>
 
+</div>
 
-<h2>Missing Skills</h2>
+
+
+<!-- Missing Skills -->
+
+<div class="skills-section">
+
+<h2>
+
+Missing Skills
+
+</h2>
 
 <ul>
 
@@ -61,6 +318,74 @@ style="width:{{score}}%;">
 ✗ {{skill}}
 
 </li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+
+
+<!-- Recommendations -->
+
+<div class="skills-section">
+
+<h2>
+
+Recommendations
+
+</h2>
+
+<ul>
+
+{% for item in recommendations %}
+
+<li class="good">
+
+💡 {{item}}
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+
+
+<!-- Resume Analysis -->
+
+<div class="skills-section">
+
+<h2>
+
+Resume Analysis
+
+</h2>
+
+<ul>
+
+{% for item in feedback %}
+
+{% if item.startswith("✓") %}
+
+<li class="good">
+
+{{item}}
+
+</li>
+
+{% else %}
+
+<li class="bad">
+
+{{item}}
+
+</li>
+
+{% endif %}
 
 {% endfor %}
 
